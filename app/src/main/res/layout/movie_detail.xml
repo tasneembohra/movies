@@ -10,16 +10,22 @@
         android:id="@+id/movieRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:indeterminateTint="@color/accent"
         android:isIndicator="true"
-        android:max="10"
+        style="@style/movieRatingBar"
         android:numStars="10"/>
     <TextView
+        android:id="@+id/ratingTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/secondaryText"
+        android:padding="8dp"
+        android:text="@string/average_rating"
+        android:textSize="12sp"/>
+    <TextView
+        android:layout_marginTop="8dp"
         android:id="@+id/movie_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textIsSelectable="true"
-        android:textSize="16sp"
         android:textColor="@color/primaryText"
         tools:context=".MovieDetailFragment" />
     <TextView
@@ -27,8 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/release_date"
-        android:textSize="14sp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/text_margin"
         android:textColor="@color/secondaryText"
         />
 </LinearLayout>

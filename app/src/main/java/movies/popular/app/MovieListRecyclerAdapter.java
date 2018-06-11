@@ -2,16 +2,13 @@ package movies.popular.app;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
@@ -19,8 +16,9 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import movies.popular.app.dummy.DummyContent;
 import movies.popular.network.model.Movie;
+
+import static movies.popular.app.Constant.IMAGE_URL;
 
 
 /**
@@ -92,7 +90,7 @@ public class MovieListRecyclerAdapter extends RecyclerView.Adapter<MovieListRecy
             Movie movie = mMovies.get(position);
             mTitle.setText(movie.title);
             Glide.with(mParentActivity)
-                    .load("http://image.tmdb.org/t/p/w780/"+movie.posterPath)
+                    .load(String.format("%s%s", IMAGE_URL, movie.posterPath))
                     .into(mImage);
 
             itemView.setTag(movie);

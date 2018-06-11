@@ -1,8 +1,7 @@
 package movies.popular.app;
 
-import android.app.Activity;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +9,14 @@ import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import movies.popular.app.dummy.DummyContent;
 import movies.popular.network.model.Movie;
 
 /**
@@ -27,6 +30,9 @@ public class MovieDetailFragment extends Fragment {
     @BindView(R.id.movie_detail) TextView mOverviewTV;
     @BindView(R.id.releaseDateTV) TextView mReleaseDateTV;
     @BindView(R.id.movieRating) RatingBar mRatingBar;
+    @BindView(R.id.ratingTV) TextView mRatingTV;
+
+
     /**
      * The fragment argument representing the item ID that this fragment represents.
      */
@@ -46,7 +52,7 @@ public class MovieDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments().containsKey(ARG_ITEM)) {
+        if (getArguments() != null && getArguments().containsKey(ARG_ITEM)) {
             // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
@@ -55,15 +61,22 @@ public class MovieDetailFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.movie_detail, container, false);
         unbinder = ButterKnife.bind(this, rootView);
 
         mOverviewTV.setText(mMovie.overview);
-        mReleaseDateTV.append(mMovie.releaseDate);
+        try {
+            Locale locale = new Locale("en", "IN");
+            Date date = new SimpleDateFormat(getString(R.string.old_date_format), locale).parse(mMovie.releaseDate);
+            mMovie.releaseDate = new SimpleDateFormat(getString(R.string.new_date_format), locale).format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        mReleaseDateTV.append("  "+mMovie.releaseDate);
         mRatingBar.setRating(mMovie.voteAverage);
-
+        mRatingTV.append(String.format("%s", mMovie.voteAverage));
         return rootView;
     }
 

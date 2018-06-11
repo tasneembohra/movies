@@ -1,15 +1,10 @@
 package movies.popular.app;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.bumptech.glide.Glide;
@@ -17,6 +12,8 @@ import com.bumptech.glide.Glide;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import movies.popular.network.model.Movie;
+
+import static movies.popular.app.Constant.IMAGE_URL;
 
 /**
  * An activity representing a single Movie detail screen. This
@@ -28,7 +25,6 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     @BindView(R.id.detail_toolbar) Toolbar mToolbar;
     @BindView(R.id.movieBanner) AppCompatImageView mImage;
-    @BindView(R.id.movieTitleTV) AppCompatTextView mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,19 +32,20 @@ public class MovieDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_detail);
 
         ButterKnife.bind(this);
-        setSupportActionBar(mToolbar);
 
+        Movie movie = (Movie) getIntent().getSerializableExtra(MovieDetailFragment.ARG_ITEM);
+
+        setSupportActionBar(mToolbar);
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(movie.title);
         }
 
-        Movie movie = (Movie) getIntent().getSerializableExtra(MovieDetailFragment.ARG_ITEM);
-        Glide.with(this).load("http://image.tmdb.org/t/p/w780/" + movie.backdropPath).into(mImage);
-        mTitle.setText(movie.title);
-        mToolbar.setTitle(movie.title);
-
+        Glide.with(this)
+                .load(String.format("%s%s", IMAGE_URL, movie.backdropPath))
+                .into(mImage);
 
         // savedInstanceState is non-null when there is fragment state
         // saved from previous configurations of this activity
