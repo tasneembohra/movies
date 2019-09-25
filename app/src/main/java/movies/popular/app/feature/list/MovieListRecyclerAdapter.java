@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import movies.popular.app.R;
+import movies.popular.app.databinding.MovieListBinding;
+import movies.popular.app.databinding.MovieListContentBinding;
 import movies.popular.app.feature.detail.MovieDetailActivity;
 import movies.popular.app.feature.detail.MovieDetailFragment;
 import movies.popular.network.model.Movie;
@@ -28,8 +30,6 @@ import static movies.popular.app.util.Constant.IMAGE_URL;
  * @author tasneem
  */
 public class MovieListRecyclerAdapter extends RecyclerView.Adapter<MovieListRecyclerAdapter.ViewHolder> {
-
-    private final MovieListActivity mParentActivity;
     private final ArrayList<Movie> mMovies;
 
     private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
@@ -43,17 +43,16 @@ public class MovieListRecyclerAdapter extends RecyclerView.Adapter<MovieListRecy
         }
     };
 
-    MovieListRecyclerAdapter(MovieListActivity parent,
-                                  ArrayList<Movie> movies) {
+    MovieListRecyclerAdapter(ArrayList<Movie> movies) {
         mMovies = movies;
-        mParentActivity = parent;
     }
 
     @NonNull
     @Override
     public MovieListRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_list_content, parent, false);
-        return new MovieListRecyclerAdapter.ViewHolder(view);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        MovieListContentBinding binding = MovieListContentBinding.inflate(inflater, parent, false);
+        return new MovieListRecyclerAdapter.ViewHolder(binding);
     }
 
     @Override
@@ -67,22 +66,18 @@ public class MovieListRecyclerAdapter extends RecyclerView.Adapter<MovieListRecy
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.movieTitleTV) AppCompatTextView mTitle;
-        @BindView(R.id.movieImage) AppCompatImageView mImage;
+        private final MovieListContentBinding binding;
 
-        ViewHolder(View view) {
-            super(view);
-            ButterKnife.bind(this, view);
-            view.setOnClickListener(mOnClickListener);
+        ViewHolder(MovieListContentBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+            binding.getRoot().setOnClickListener(mOnClickListener);
         }
 
         void bind(int position) {
             Movie movie = mMovies.get(position);
-            mTitle.setText(movie.title);
-            Glide.with(mParentActivity)
-                    .load(String.format("%s%s", IMAGE_URL, movie.posterPath))
-                    .into(mImage);
-
+            binding.setImageUrl(movie.posterPath);
+            binding.setTitle(movie.title);
             itemView.setTag(movie);
         }
     }

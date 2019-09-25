@@ -53,7 +53,7 @@ public class MovieListActivity extends BaseActivity<ActivityMovieListBinding, Mo
     }
 
     private void setupRecyclerView() {
-        mAdapter = new MovieListRecyclerAdapter(this, mMovieList);
+        mAdapter = new MovieListRecyclerAdapter(mMovieList);
         mBinding.itemLayout.movieList.setAdapter(mAdapter);
     }
 

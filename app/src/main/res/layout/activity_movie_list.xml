@@ -21,8 +21,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             bind:titleResId="@{viewModel.titleResId.get()}"
             android:layout_width="match_parent"
+            android:background="@color/primary"
             android:layout_height="?attr/actionBarSize"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
         <include
             android:id="@+id/itemLayout"

@@ -1,25 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="250dp">
-
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/movieImage"
-        android:layout_centerInParent="true"
+<layout>
+    <data>
+        <variable
+            name="title"
+            type="String" />
+        <variable
+            name="imageUrl"
+            type="String" />
+    </data>
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"/>
+        android:layout_height="250dp">
 
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/movieTitleTV"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/accent"
-        android:backgroundTint="#AA000000"
-        android:padding="5dp"
-        android:gravity="center"
-        android:textSize="14sp"
-        android:textColor="@android:color/white" />
-</RelativeLayout>
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/movieImage"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            bind:src="@{imageUrl}"
+            android:scaleType="centerCrop"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/movieTitleTV"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/accent"
+            android:backgroundTint="#AA000000"
+            android:text="@{title}"
+            android:padding="5dp"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:textColor="@android:color/white" />
+    </RelativeLayout>
+</layout>
