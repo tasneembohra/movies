@@ -6,8 +6,10 @@ import java.util.ArrayList;
 
 import movies.popular.network.BuildConfig;
 import movies.popular.network.RetrofitClient;
+import movies.popular.network.model.DataList;
 import movies.popular.network.model.Movie;
 import movies.popular.network.model.MovieList;
+import movies.popular.network.model.Review;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -53,7 +55,20 @@ public class MoviesListApi {
 
     public void getTopRatedMovie(int page) {
         RetrofitClient.getClient().getTopRatedMovies(BuildConfig.movieDBApiKey, page).enqueue(callback);
+    }
 
+    public void getMovieTrailer(int movieId) {
+        RetrofitClient.getClient().getReviews(BuildConfig.movieDBApiKey, movieId).enqueue(new Callback<DataList<Review>>() {
+            @Override
+            public void onResponse(Call<DataList<Review>> call, Response<DataList<Review>> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<DataList<Review>> call, Throwable t) {
+
+            }
+        });
     }
 
 }
