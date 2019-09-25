@@ -1,6 +1,7 @@
 package movies.popular.app.feature.list;
 
 import android.arch.lifecycle.Observer;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,7 +34,7 @@ public class MovieListActivity extends BaseActivity<ActivityMovieListBinding, Mo
     }
 
     @Override
-    protected void init() {
+    protected void init(@Nullable Bundle savedInstanceState) {
 
         mBinding.setViewModel(mViewModel);
 

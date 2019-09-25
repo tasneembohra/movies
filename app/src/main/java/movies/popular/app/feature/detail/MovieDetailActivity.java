@@ -1,21 +1,17 @@
 package movies.popular.app.feature.detail;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.bumptech.glide.Glide;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import movies.popular.app.R;
+import movies.popular.app.databinding.ActivityMovieDetailBinding;
+import movies.popular.app.feature.BaseActivity;
 import movies.popular.app.feature.list.MovieListActivity;
 import movies.popular.network.model.Movie;
-
-import static movies.popular.app.util.Constant.IMAGE_URL;
 
 /**
  * An activity representing a single Movie detail screen. This
@@ -23,21 +19,35 @@ import static movies.popular.app.util.Constant.IMAGE_URL;
  * item details are presented side-by-side with a list of items
  * in a {@link MovieListActivity}.
  */
-public class MovieDetailActivity extends AppCompatActivity {
+public class MovieDetailActivity extends BaseActivity<ActivityMovieDetailBinding, MovieDetailViewModel>  {
 
-    @BindView(R.id.detail_toolbar) Toolbar mToolbar;
-    @BindView(R.id.movieBanner) AppCompatImageView mImage;
+    private static final String EXTRA_MOVIE_DATA = "movie_data";
+
+    public static Intent getIntent(Context context, Movie movie) {
+        Intent intent = new Intent(context, MovieDetailActivity.class);
+        intent.putExtra(EXTRA_MOVIE_DATA, movie);
+        return intent;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movie_detail);
+    protected Integer getLayout() {
+        return R.layout.activity_movie_detail;
+    }
 
-        ButterKnife.bind(this);
+    @Override
+    protected Class<MovieDetailViewModel> getViewModelClass() {
+        return MovieDetailViewModel.class;
+    }
 
-        Movie movie = (Movie) getIntent().getSerializableExtra(MovieDetailFragment.ARG_ITEM);
+    @Override
+    protected void init(@Nullable Bundle savedInstanceState) {
 
-        setSupportActionBar(mToolbar);
+        mBinding.setViewModel(mViewModel);
+
+        Movie movie = (Movie) getIntent().getSerializableExtra(EXTRA_MOVIE_DATA);
+
+        setSupportActionBar(mBinding.detailToolbar);
+
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -45,9 +55,8 @@ public class MovieDetailActivity extends AppCompatActivity {
             actionBar.setTitle(movie.title);
         }
 
-        Glide.with(this)
-                .load(String.format("%s%s", IMAGE_URL, movie.backdropPath))
-                .into(mImage);
+        mViewModel.bannerImageUrl.set(movie.backdropPath);
+        mViewModel.movie = movie;
 
         // savedInstanceState is non-null when there is fragment state
         // saved from previous configurations of this activity
@@ -62,9 +71,7 @@ public class MovieDetailActivity extends AppCompatActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putSerializable(MovieDetailFragment.ARG_ITEM, movie);
             MovieDetailFragment fragment = new MovieDetailFragment();
-            fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.movie_detail_container, fragment)
                     .commit();

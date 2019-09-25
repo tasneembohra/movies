@@ -15,7 +15,7 @@ public abstract class BaseActivity<B extends ViewDataBinding , V extends BaseVie
 
     protected abstract Integer getLayout();
     protected abstract Class<V> getViewModelClass();
-    protected abstract void init();
+    protected abstract void init(@Nullable Bundle savedInstanceState);
 
     @SuppressWarnings("unchecked")
     private B bindView() {
@@ -31,6 +31,6 @@ public abstract class BaseActivity<B extends ViewDataBinding , V extends BaseVie
         super.onCreate(savedInstanceState);
         mBinding = bindView();
         mViewModel = getViewModel();
-        init();
+        init(savedInstanceState);
     }
 }

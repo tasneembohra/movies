@@ -1,29 +1,17 @@
 package movies.popular.app.feature.list;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
-
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import movies.popular.app.R;
-import movies.popular.app.databinding.MovieListBinding;
 import movies.popular.app.databinding.MovieListContentBinding;
 import movies.popular.app.feature.detail.MovieDetailActivity;
-import movies.popular.app.feature.detail.MovieDetailFragment;
 import movies.popular.network.model.Movie;
-
-import static movies.popular.app.util.Constant.IMAGE_URL;
 
 
 /**
@@ -37,9 +25,7 @@ public class MovieListRecyclerAdapter extends RecyclerView.Adapter<MovieListRecy
         public void onClick(View view) {
             Movie movie = (Movie) view.getTag();
             Context context = view.getContext();
-            Intent intent = new Intent(context, MovieDetailActivity.class);
-            intent.putExtra(MovieDetailFragment.ARG_ITEM, movie);
-            context.startActivity(intent);
+            context.startActivity(MovieDetailActivity.getIntent(context, movie));
         }
     };
 
