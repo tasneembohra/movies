@@ -9,8 +9,8 @@
         android:layout_height="match_parent"
         app:layoutManager="android.support.v7.widget.StaggeredGridLayoutManager"
         tools:context=".feature.list.MovieListActivity"
-        app:spanCount="2"
-        android:layout_columnSpan="2"
+        app:spanCount="3"
+        android:layout_columnSpan="3"
         android:background="#403E3D"
         tools:listitem="@layout/movie_list_content"/>
 </layout>

@@ -1,4 +1,4 @@
-package movies.popular.app;
+package movies.popular.app.feature.list;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,9 +16,12 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import movies.popular.app.R;
+import movies.popular.app.feature.detail.MovieDetailActivity;
+import movies.popular.app.feature.detail.MovieDetailFragment;
 import movies.popular.network.model.Movie;
 
-import static movies.popular.app.Constant.IMAGE_URL;
+import static movies.popular.app.util.Constant.IMAGE_URL;
 
 
 /**
@@ -28,35 +31,22 @@ public class MovieListRecyclerAdapter extends RecyclerView.Adapter<MovieListRecy
 
     private final MovieListActivity mParentActivity;
     private final ArrayList<Movie> mMovies;
-    private final boolean mTwoPane;
 
     private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             Movie movie = (Movie) view.getTag();
-            if (mTwoPane) {
-//                Bundle arguments = new Bundle();
-//                arguments.putSerializable(MovieDetailFragment.ARG_ITEM_ID, movie);
-//                MovieDetailFragment fragment = new MovieDetailFragment();
-//                fragment.setArguments(arguments);
-//                mParentActivity.getSupportFragmentManager().beginTransaction()
-//                        .replace(R.id.movie_detail_container, fragment)
-//                        .commit();
-            } else {
-                Context context = view.getContext();
-                Intent intent = new Intent(context, MovieDetailActivity.class);
-                intent.putExtra(MovieDetailFragment.ARG_ITEM, movie);
-                context.startActivity(intent);
-            }
+            Context context = view.getContext();
+            Intent intent = new Intent(context, MovieDetailActivity.class);
+            intent.putExtra(MovieDetailFragment.ARG_ITEM, movie);
+            context.startActivity(intent);
         }
     };
 
     MovieListRecyclerAdapter(MovieListActivity parent,
-                                  ArrayList<Movie> movies,
-                                  boolean twoPane) {
+                                  ArrayList<Movie> movies) {
         mMovies = movies;
         mParentActivity = parent;
-        mTwoPane = twoPane;
     }
 
     @NonNull

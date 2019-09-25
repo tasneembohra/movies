@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.List;
 
+// TODO convert to @android.os.Parcelable
 public class Movie implements Serializable {
 
     @SerializedName("release_date")

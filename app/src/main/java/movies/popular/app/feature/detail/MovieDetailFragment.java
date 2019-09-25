@@ -1,4 +1,4 @@
-package movies.popular.app;
+package movies.popular.app.feature.detail;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,6 +17,8 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import movies.popular.app.R;
+import movies.popular.app.feature.list.MovieListActivity;
 import movies.popular.network.model.Movie;
 
 /**

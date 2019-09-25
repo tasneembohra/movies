@@ -8,4 +8,7 @@
     <string name="average_rating">Average Rating:</string>
     <string name="old_date_format">yyyy-MM-dd</string>
     <string name="new_date_format">dd MMM, yyyy</string>
+    <string name="error_msg">Something went wrong!</string>
+    <string name="title_popular_movies">Popular Movies</string>
+    <string name="title_top_movie">Top Rated Movies</string>
 </resources>

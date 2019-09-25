@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/primaryText"
-        tools:context=".MovieDetailFragment" />
+        tools:context=".feature.detail.MovieDetailFragment" />
     <TextView
         android:id="@+id/releaseDateTV"
         android:layout_width="match_parent"

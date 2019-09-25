@@ -1,4 +1,4 @@
-package movies.popular.app;
+package movies.popular.app.feature.detail;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -11,9 +11,11 @@ import com.bumptech.glide.Glide;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import movies.popular.app.R;
+import movies.popular.app.feature.list.MovieListActivity;
 import movies.popular.network.model.Movie;
 
-import static movies.popular.app.Constant.IMAGE_URL;
+import static movies.popular.app.util.Constant.IMAGE_URL;
 
 /**
  * An activity representing a single Movie detail screen. This
